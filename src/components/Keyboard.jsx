@@ -1,7 +1,6 @@
 import generateKeys from "../utils/keyboard";
 
 export default function Keyboard(props) {
-
     const keys = generateKeys();
 
     const renderedKeyboard = keys.map((tile, index) => {
@@ -37,5 +36,5 @@ export default function Keyboard(props) {
             </button>
         );
     });
-    return (<div className="keyboard">{renderedKeyboard}</div>)
+    return <div className="keyboard">{renderedKeyboard}</div>;
 }

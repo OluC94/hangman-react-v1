@@ -33,7 +33,7 @@ export default function Hangman() {
             </h2>
             <h3>Guessed Letters: {guessedLetters}</h3>
             <p>Number of guesses: {numberOfGuesses}</p>
-            <Keyboard 
+            <Keyboard
                 setNumberOfGuesses={setNumberOfGuesses}
                 setGuessedLetters={setGuessedLetters}
                 generateHangmanLetters={generateHangmanLetters}
