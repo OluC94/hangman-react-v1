@@ -2,6 +2,7 @@ import { useState } from "react";
 import getRandomWord from "./utils/get-random-word";
 import generateKeys from "./utils/keyboard";
 import { generateHangmanLetters } from "./utils/hangman-logic";
+import Keyboard from "./components/Keyboard";
 
 export default function Hangman() {
     const randomWord = getRandomWord();
@@ -69,6 +70,7 @@ export default function Hangman() {
             </h2>
             <h3>Guessed Letters: {guessedLetters}</h3>
             <p>Number of guesses: {numberOfGuesses}</p>
+            <Keyboard/>
             <div className="keyboard">{renderedKeyboard}</div>
             <button onClick={handleNewGame}>New Game</button>
         </div>
