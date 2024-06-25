@@ -3,6 +3,7 @@ import getRandomWord from "./utils/get-random-word";
 import { generateHangmanLetters } from "./utils/hangman-logic";
 import Keyboard from "./components/Keyboard";
 import NewGame from "./components/NewGame";
+import GuessDisplay from "./components/GuessDisplay";
 
 export default function Hangman() {
     const randomWord = getRandomWord();
@@ -21,13 +22,15 @@ export default function Hangman() {
     return (
         <div className="game">
             <h1>Hangman Game</h1>
-            {isGameWon && <h2>You Win!</h2>}
-            {isGameLost && !isGameWon && <h2>You lose, too many guesses</h2>}
-            <h2 className="revealed-guesses">
-                {!isGameOver ? revealedGuesses : targetWord}
-            </h2>
-            <h3>Guessed Letters: {guessedLetters}</h3>
-            <p>Number of guesses: {numberOfGuesses}</p>
+            <GuessDisplay 
+                isGameWon={isGameWon}
+                isGameLost={isGameLost}
+                isGameOver={isGameOver}
+                revealedGuesses={revealedGuesses}
+                targetWord={targetWord}
+                guessedLetters={guessedLetters}
+                numberOfGuesses={numberOfGuesses}
+            />
             <Keyboard
                 setNumberOfGuesses={setNumberOfGuesses}
                 setGuessedLetters={setGuessedLetters}
