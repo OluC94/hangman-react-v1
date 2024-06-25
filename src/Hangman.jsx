@@ -2,6 +2,7 @@ import { useState } from "react";
 import getRandomWord from "./utils/get-random-word";
 import { generateHangmanLetters } from "./utils/hangman-logic";
 import Keyboard from "./components/Keyboard";
+import NewGame from "./components/NewGame";
 
 export default function Hangman() {
     const randomWord = getRandomWord();
@@ -17,12 +18,6 @@ export default function Hangman() {
     const isGameWon = !revealedGuesses.includes("_");
     const isGameOver = isGameWon || isGameLost;
 
-    function handleNewGame() {
-        setNumberOfGuesses(0);
-        setGuessedLetters([]);
-        setTargetWord(getRandomWord());
-        setRevealedGuesses(generateHangmanLetters([], targetWord));
-    }
     return (
         <div className="game">
             <h1>Hangman Game</h1>
@@ -42,7 +37,14 @@ export default function Hangman() {
                 guessedLetters={guessedLetters}
                 isGameOver={isGameOver}
             />
-            <button onClick={handleNewGame}>New Game</button>
+            <NewGame 
+                setNumberOfGuesses={setNumberOfGuesses}
+                setGuessedLetters={setGuessedLetters}
+                setTargetWord={setTargetWord}
+                setRevealedGuesses={setRevealedGuesses}
+                generateHangmanLetters={generateHangmanLetters}
+                targetWord={targetWord}
+            />
         </div>
     );
 }
