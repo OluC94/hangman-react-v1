@@ -5,14 +5,15 @@ import { generateHangmanLetters } from "./utils/hangman-logic";
 import countMistakes from "./utils/count-mistakes";
 import Keyboard from "./components/Keyboard";
 import NewGame from "./components/NewGame";
+import GuessDisplay from "./components/GuessDisplay";
 
 export default function Hangman() {
     const randomWord = getRandomWord();
     const [targetWord, setTargetWord] = useState(randomWord);
     const [guessedLetters, setGuessedLetters] = useState([]);
 
-    let revealedGuesses = generateHangmanLetters(guessedLetters, targetWord);
-    let numberOfMistakes = countMistakes(guessedLetters, targetWord);
+    const revealedGuesses = generateHangmanLetters(guessedLetters, targetWord);
+    const numberOfMistakes = countMistakes(guessedLetters, targetWord);
 
     const missLimit = targetWord.length;
 
@@ -30,17 +31,16 @@ export default function Hangman() {
 
     const winState = calculateWinState();
 
-
     return (
         <div className="game">
             <h1>Hangman</h1>
-            {winState === "win" && <h2>You Win!</h2>}
-            {winState === "lose" && <h2>You lose, too many guesses</h2>}
-            <h2 className="revealed-guesses">
-                {winState === "in-progress" ? revealedGuesses : targetWord}
-            </h2>
-            <h3>Guessed Letters: {guessedLetters}</h3>
-            <p>Number of mistakes: {numberOfMistakes}</p>
+            <GuessDisplay
+                winState={winState}
+                revealedGuesses={revealedGuesses}
+                targetWord={targetWord}
+                guessedLetters={guessedLetters}
+                numberOfMistakes={numberOfMistakes}
+            />
             <Keyboard
                 winState={winState}
                 guessedLetters={guessedLetters}

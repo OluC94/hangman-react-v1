@@ -33,6 +33,13 @@ select {
     gap: 0.5rem;
 }
 
+.guess-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
 .revealed-guesses {
     letter-spacing: 5px;
 }
