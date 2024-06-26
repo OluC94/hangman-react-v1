@@ -9,25 +9,21 @@ export default function Hangman() {
     const [targetWord, setTargetWord] = useState(randomWord);
     const [guessedLetters, setGuessedLetters] = useState([]);
 
-
     let revealedGuesses = generateHangmanLetters(guessedLetters, targetWord);
     let numberOfMistakes = countMistakes(guessedLetters, targetWord);
 
     const missLimit = targetWord.length;
-    const isGameLost = numberOfMistakes > missLimit;
-    const isGameWon = !revealedGuesses.includes("_");
-    const isGameOver = isGameWon || isGameLost;
 
-    function calculateWinState(){
-        if (!revealedGuesses.includes("_")){
-            return "win"
+    function calculateWinState() {
+        if (!revealedGuesses.includes("_")) {
+            return "win";
         }
 
-        if (numberOfMistakes > missLimit){
-            return "lose"
+        if (numberOfMistakes > missLimit) {
+            return "lose";
         }
 
-        return "in-progress"
+        return "in-progress";
     }
 
     const winState = calculateWinState();
