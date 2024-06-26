@@ -6,14 +6,9 @@
  */
 export default function determineMistakes(guessedLetters, targetWord) {
     // return the number of guessed letters that are not in the target word
-    let mistakeCount = 0;
-
-    for (const letter of guessedLetters) {
-        const letterIsMistake = !targetWord.includes(letter);
-        if (letterIsMistake) {
-            mistakeCount++;
-        }
+    function isNotInTargetWord(letter){
+        return !targetWord.includes(letter);
     }
-
-    return mistakeCount;
+    
+    return guessedLetters.filter(isNotInTargetWord).length;
 }
