@@ -22,7 +22,7 @@ export default function Hangman() {
     return (
         <div className="game">
             <h1>Hangman Game</h1>
-            <GuessDisplay 
+            <GuessDisplay
                 isGameWon={isGameWon}
                 isGameLost={isGameLost}
                 isGameOver={isGameOver}
@@ -40,7 +40,7 @@ export default function Hangman() {
                 guessedLetters={guessedLetters}
                 isGameOver={isGameOver}
             />
-            <NewGame 
+            <NewGame
                 setNumberOfGuesses={setNumberOfGuesses}
                 setGuessedLetters={setGuessedLetters}
                 setTargetWord={setTargetWord}
