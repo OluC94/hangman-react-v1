@@ -8,6 +8,8 @@ export default function Hangman() {
     const randomWord = getRandomWord();
     const [targetWord, setTargetWord] = useState(randomWord);
     const [guessedLetters, setGuessedLetters] = useState([]);
+
+
     let revealedGuesses = generateHangmanLetters(guessedLetters, targetWord);
     let numberOfMistakes = determineMistakes(guessedLetters, targetWord);
 
@@ -16,21 +18,29 @@ export default function Hangman() {
     const isGameWon = !revealedGuesses.includes("_");
     const isGameOver = isGameWon || isGameLost;
 
-    const keys = generateKeys();
-
-    const renderedKeyboard = keys.map((tile, index) => {
-        function handleTileClicked(letter) {
-            numberOfMistakes = determineMistakes(guessedLetters, targetWord);
-            setGuessedLetters((currArr) => {
-                revealedGuesses = generateHangmanLetters(
-                    [...currArr, letter],
-                    targetWord,
-                );
-
-                return [...currArr, letter];
-            });
+    function calculateWinState(){
+        if (!revealedGuesses.includes("_")){
+            return "win"
         }
 
+        if (numberOfMistakes > missLimit){
+            return "lose"
+        }
+
+        return "in-progress"
+    }
+
+    const winState = calculateWinState();
+
+    const keysLetters = generateKeys();
+
+    function handleTileClicked(letter) {
+        setGuessedLetters((currArr) => {
+            return [...currArr, letter];
+        });
+    }
+
+    const renderedKeyboard = keysLetters.map((tile, index) => {
         const letterHasBeenGuessed = guessedLetters.includes(tile.letter);
 
         if (letterHasBeenGuessed || isGameOver) {
