@@ -1,6 +1,5 @@
 import { useState } from "react";
 import getRandomWord from "./utils/get-random-word";
-import generateKeys from "./utils/keyboard";
 import { generateHangmanLetters } from "./utils/hangman-logic";
 import countMistakes from "./utils/count-mistakes";
 import Keyboard from "./components/Keyboard";
