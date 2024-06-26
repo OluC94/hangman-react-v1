@@ -4,6 +4,7 @@ import generateKeys from "./utils/keyboard";
 import { generateHangmanLetters } from "./utils/hangman-logic";
 import countMistakes from "./utils/count-mistakes";
 import Keyboard from "./components/Keyboard";
+import NewGame from "./components/NewGame";
 
 export default function Hangman() {
     const randomWord = getRandomWord();
@@ -29,10 +30,7 @@ export default function Hangman() {
 
     const winState = calculateWinState();
 
-    function handleNewGame() {
-        setGuessedLetters([]);
-        setTargetWord(getRandomWord());
-    }
+
     return (
         <div className="game">
             <h1>Hangman</h1>
@@ -48,7 +46,11 @@ export default function Hangman() {
                 guessedLetters={guessedLetters}
                 setGuessedLetters={setGuessedLetters}
             />
-            <button onClick={handleNewGame}>New Game</button>
+            <NewGame
+                setGuessedLetters={setGuessedLetters}
+                setTargetWord={setTargetWord}
+                getRandomWord={getRandomWord}
+            />
         </div>
     );
 }
