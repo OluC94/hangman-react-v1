@@ -2,7 +2,7 @@ import { useState } from "react";
 import getRandomWord from "./utils/get-random-word";
 import generateKeys from "./utils/keyboard";
 import { generateHangmanLetters } from "./utils/hangman-logic";
-import determineMistakes from "./utils/determine-mistakes";
+import countMistakes from "./utils/count-mistakes";
 
 export default function Hangman() {
     const randomWord = getRandomWord();
@@ -11,7 +11,7 @@ export default function Hangman() {
 
 
     let revealedGuesses = generateHangmanLetters(guessedLetters, targetWord);
-    let numberOfMistakes = determineMistakes(guessedLetters, targetWord);
+    let numberOfMistakes = countMistakes(guessedLetters, targetWord);
 
     const missLimit = targetWord.length;
     const isGameLost = numberOfMistakes > missLimit;
@@ -40,40 +40,36 @@ export default function Hangman() {
         });
     }
 
-    const renderedKeyboard = keysLetters.map((tile, index) => {
-        const letterHasBeenGuessed = guessedLetters.includes(tile.letter);
+    const renderedKeyboard = keysLetters.map((letter, index) => {
+        const letterHasBeenGuessed = guessedLetters.includes(letter);
 
-        if (letterHasBeenGuessed || isGameOver) {
-            tile.isClicked = true;
-        }
+        const isDisabled = letterHasBeenGuessed || winState !== "in-progress";
 
         return (
             <button
                 key={index}
                 className="tile"
                 onClick={() => {
-                    handleTileClicked(tile.letter);
+                    handleTileClicked(letter);
                 }}
-                disabled={tile.isClicked}
+                disabled={isDisabled}
             >
-                {tile.letter}
+                {letter}
             </button>
         );
     });
 
     function handleNewGame() {
-        numberOfMistakes = 0;
         setGuessedLetters([]);
         setTargetWord(getRandomWord());
-        revealedGuesses = generateHangmanLetters([], targetWord);
     }
     return (
         <div className="game">
             <h1>Hangman Game</h1>
-            {isGameWon && <h2>You Win!</h2>}
-            {isGameLost && !isGameWon && <h2>You lose, too many guesses</h2>}
+            {winState === "win" && <h2>You Win!</h2>}
+            {winState === "lose" && <h2>You lose, too many guesses</h2>}
             <h2 className="revealed-guesses">
-                {!isGameOver ? revealedGuesses : targetWord}
+                {winState === "in-progress" ? revealedGuesses : targetWord}
             </h2>
             <h3>Guessed Letters: {guessedLetters}</h3>
             <p>Number of mistakes: {numberOfMistakes}</p>
